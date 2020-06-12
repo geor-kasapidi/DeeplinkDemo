@@ -5,6 +5,16 @@ final class LoadingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // performance testing
+        DispatchQueue.global().async {
+            (0..<1000).forEach { i in
+                Deeplinks.processor.register { _, _ in
+                    print("HERE_\(i)")
+                    return false
+                }
+            }
+        }
+
         view.backgroundColor = .white
 
         let spinner = UIActivityIndicatorView(style: .large)
