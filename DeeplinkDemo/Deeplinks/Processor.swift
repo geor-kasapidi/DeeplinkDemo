@@ -15,7 +15,7 @@ final class DeeplinkProcessor<ActionType> {
         self.conversionFunc = conversionFunc
     }
 
-    func register(handler: @escaping HandlerFunc) {
+    func subscribe(handler: @escaping HandlerFunc) {
         self.queue.async {
             self.handlers.append(handler)
             self.buffer = self.buffer.filter { !handler($0, false) }
@@ -27,7 +27,7 @@ final class DeeplinkProcessor<ActionType> {
             return false
         }
         self.queue.async {
-            if !self.handlers.reduce(false, { $0 || $1(action, $0) }) {
+            if !self.handlers.reduce(false, { $1(action, $0) || $0 }) {
                 self.buffer.append(action)
             }
         }

@@ -6,8 +6,8 @@ final class AlertViewController: UIViewController {
 
         view.backgroundColor = .white
 
-        Deeplinks.processor.register { [weak self] (action, wasProcessed) -> Bool in
-            guard let self = self, !wasProcessed else {
+        Deeplinks.processor.subscribe { [weak self] (action, eventWasHandledEarlier) -> Bool in
+            guard !eventWasHandledEarlier, let self = self else {
                 return false
             }
 
@@ -17,7 +17,7 @@ final class AlertViewController: UIViewController {
                     self.showAlert(title: title, subtitle: subtitle)
                 }
                 return true
-            case .setupDefaults:
+            default:
                 return false
             }
         }

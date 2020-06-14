@@ -6,7 +6,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-        Deeplinks.processor.register { (action, _) -> Bool in
+        Deeplinks.processor.subscribe { (action, _) -> Bool in
             switch action {
             case let .setupDefaults(key: key, value: value):
                 UserDefaults.standard.set(value, forKey: key)

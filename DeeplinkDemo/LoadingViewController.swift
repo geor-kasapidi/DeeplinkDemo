@@ -8,7 +8,7 @@ final class LoadingViewController: UIViewController {
         // performance testing
         DispatchQueue.global().async {
             (0..<1000).forEach { i in
-                Deeplinks.processor.register { _, _ in
+                Deeplinks.processor.subscribe { _, _ in
                     print("HERE_\(i)")
                     return false
                 }
